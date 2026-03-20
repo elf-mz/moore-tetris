@@ -28,6 +28,13 @@ const gameCanvas = document.getElementById("game");
 const nextCanvas = document.getElementById("next");
 const gameCtx = gameCanvas.getContext("2d");
 const nextCtx = nextCanvas.getContext("2d");
+const appShell = document.querySelector(".app-shell");
+const gameLayout = document.querySelector(".game-layout");
+const gamePanel = document.querySelector(".game-panel");
+const canvasWrap = document.querySelector(".canvas-wrap");
+const boardFrame = document.querySelector(".board-frame");
+const boardTopbar = document.querySelector(".board-topbar");
+const mobileControls = document.querySelector(".mobile-controls");
 const scoreEl = document.getElementById("score");
 const linesEl = document.getElementById("lines");
 const levelEl = document.getElementById("level");
@@ -105,6 +112,7 @@ function resetGame() {
   updateStats();
   updateStatus("Running");
   setPauseLabels("Pause");
+  applyResponsiveLayout();
   draw();
 }
 
@@ -396,6 +404,43 @@ function handleAction(action) {
   if (action === "pause") togglePause();
 }
 
+function applyResponsiveLayout() {
+  const isMobile = window.innerWidth <= 720;
+
+  gameCanvas.style.width = "";
+  gameCanvas.style.height = "";
+  boardFrame.style.height = "";
+  gamePanel.style.height = "";
+  canvasWrap.style.height = "";
+
+  if (!isMobile) {
+    return;
+  }
+
+  const viewportHeight = Math.floor(window.visualViewport?.height || window.innerHeight);
+  const shellStyles = getComputedStyle(appShell);
+  const layoutStyles = getComputedStyle(gameLayout);
+  const boardStyles = getComputedStyle(boardFrame);
+
+  const shellVertical = parseFloat(shellStyles.paddingTop) + parseFloat(shellStyles.paddingBottom);
+  const layoutGap = parseFloat(layoutStyles.rowGap || layoutStyles.gap || 0);
+  const controlsHeight = mobileControls.offsetHeight;
+  const boardVerticalChrome = parseFloat(boardStyles.paddingTop) + parseFloat(boardStyles.paddingBottom) + boardTopbar.offsetHeight + 2;
+  const availableBoardHeight = Math.max(220, viewportHeight - shellVertical - controlsHeight - layoutGap - 8);
+  const usableBoardHeight = Math.max(180, availableBoardHeight - boardVerticalChrome);
+  const boardWidthLimit = Math.max(120, boardFrame.clientWidth - parseFloat(boardStyles.paddingLeft) - parseFloat(boardStyles.paddingRight) - 2);
+
+  const targetHeight = Math.floor(Math.min(usableBoardHeight, boardWidthLimit * 2));
+  const targetWidth = Math.floor(targetHeight / 2);
+  const frameHeight = Math.ceil(targetHeight + boardVerticalChrome);
+
+  gameCanvas.style.width = `${targetWidth}px`;
+  gameCanvas.style.height = `${targetHeight}px`;
+  boardFrame.style.height = `${frameHeight}px`;
+  gamePanel.style.height = `${frameHeight}px`;
+  canvasWrap.style.height = `${frameHeight}px`;
+}
+
 function bindTouchGestures() {
   gameCanvas.addEventListener("pointerdown", (event) => {
     touchStart = { x: event.clientX, y: event.clientY, time: Date.now() };
@@ -488,9 +533,13 @@ function bindEvents() {
   pauseButton.addEventListener("click", togglePause);
   if (pauseButtonMobile) pauseButtonMobile.addEventListener("click", togglePause);
 
+  window.addEventListener("resize", applyResponsiveLayout);
+  window.visualViewport?.addEventListener("resize", applyResponsiveLayout);
+
   bindTouchGestures();
 }
 
 bindEvents();
 updateStatus("Ready");
+applyResponsiveLayout();
 draw();
