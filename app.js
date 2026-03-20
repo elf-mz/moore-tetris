@@ -37,8 +37,10 @@ const levelMobileEl = document.getElementById("levelMobile");
 const overlayEl = document.getElementById("overlay");
 const finalScoreEl = document.getElementById("finalScore");
 const startButton = document.getElementById("startButton");
+const startButtonMobile = document.getElementById("startButtonMobile");
 const restartButton = document.getElementById("restartButton");
 const pauseButton = document.getElementById("pauseButton");
+const pauseButtonMobile = document.getElementById("pauseButtonMobile");
 const swipeHint = document.getElementById("swipeHint");
 const statusText = document.getElementById("statusText");
 
@@ -84,6 +86,11 @@ function vibrate(pattern = 12) {
   if (navigator.vibrate) navigator.vibrate(pattern);
 }
 
+function setPauseLabels(label) {
+  pauseButton.textContent = label;
+  if (pauseButtonMobile) pauseButtonMobile.textContent = label;
+}
+
 function resetGame() {
   board = createBoard();
   score = 0;
@@ -97,7 +104,7 @@ function resetGame() {
   nextPiece = createPiece();
   updateStats();
   updateStatus("Running");
-  pauseButton.textContent = "Pause";
+  setPauseLabels("Pause");
   draw();
 }
 
@@ -238,13 +245,13 @@ function endGame() {
   finalScoreEl.textContent = `Score: ${score}`;
   overlayEl.classList.remove("hidden");
   updateStatus("Game Over");
-  pauseButton.textContent = "Pause";
+  setPauseLabels("Pause");
 }
 
 function togglePause() {
   if (!isRunning) return;
   isPaused = !isPaused;
-  pauseButton.textContent = isPaused ? "Resume" : "Pause";
+  setPauseLabels(isPaused ? "Resume" : "Pause");
   updateStatus(isPaused ? "Paused" : "Running");
   if (!isPaused) {
     lastTime = performance.now();
@@ -476,8 +483,10 @@ function bindEvents() {
   });
 
   startButton.addEventListener("click", startGame);
+  if (startButtonMobile) startButtonMobile.addEventListener("click", startGame);
   restartButton.addEventListener("click", startGame);
   pauseButton.addEventListener("click", togglePause);
+  if (pauseButtonMobile) pauseButtonMobile.addEventListener("click", togglePause);
 
   bindTouchGestures();
 }

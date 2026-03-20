@@ -372,6 +372,10 @@ h1 {
   display: none;
 }
 
+.mobile-actions {
+  display: none;
+}
+
 .touch-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -495,6 +499,20 @@ h1 {
   .mobile-controls {
     display: block;
     background: rgba(8, 22, 44, 0.92);
+  }
+
+  .mobile-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    margin-bottom: 5px;
+  }
+
+  .mobile-actions .primary-btn,
+  .mobile-actions .secondary-btn {
+    padding: 8px 6px;
+    border-radius: 10px;
+    font-size: 0.78rem;
   }
 
   .mobile-controls .section-label {
