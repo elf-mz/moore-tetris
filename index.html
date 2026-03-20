@@ -2,38 +2,52 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Moore Mozambique Tetris</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div class="backdrop-grid" aria-hidden="true"></div>
+    <div class="glow glow-a" aria-hidden="true"></div>
+    <div class="glow glow-b" aria-hidden="true"></div>
+
     <div class="app-shell">
       <header class="hero-card">
         <div>
           <p class="eyebrow">MOORE MOZAMBIQUE</p>
-          <h1>Brand-playful Tetris, built for a clean first deploy.</h1>
+          <h1>Tetris with a sharper board, richer glow, and a proper mobile feel.</h1>
           <p class="subtitle">
-            Modern glassmorphism UI, Moore-inspired blues, responsive layout, keyboard + touch support.
+            Swipe on the board to move and drop, tap to rotate, or use the on-screen controls.
           </p>
         </div>
-        <div class="hero-badge">Test App</div>
+        <div class="hero-badges">
+          <div class="hero-badge">Mobile Ready</div>
+          <div class="hero-badge ghost">VPS Test Build</div>
+        </div>
       </header>
 
       <main class="game-layout">
         <section class="panel game-panel">
           <div class="canvas-wrap">
-            <canvas id="game" width="300" height="600" aria-label="Tetris board"></canvas>
-            <div id="overlay" class="overlay hidden">
-              <div>
-                <p class="overlay-label">Game Over</p>
-                <h2 id="finalScore">Score: 0</h2>
-                <button id="restartButton" class="primary-btn">Play again</button>
+            <div class="board-frame">
+              <div class="board-topbar">
+                <span class="top-pill">Moore Play Lab</span>
+                <span id="statusText" class="top-pill subtle">Ready</span>
+              </div>
+              <canvas id="game" width="300" height="600" aria-label="Tetris board"></canvas>
+              <div id="swipeHint" class="swipe-hint">Tap = rotate · Swipe = move/drop</div>
+              <div id="overlay" class="overlay hidden">
+                <div>
+                  <p class="overlay-label">Game Over</p>
+                  <h2 id="finalScore">Score: 0</h2>
+                  <button id="restartButton" class="primary-btn">Play again</button>
+                </div>
               </div>
             </div>
           </div>
@@ -45,12 +59,12 @@
               <div class="brand-mark">M</div>
               <div>
                 <p class="brand-title">Moore Mozambique</p>
-                <p class="brand-subtitle">Internal demo concept</p>
+                <p class="brand-subtitle">Interactive internal demo</p>
               </div>
             </div>
 
             <div class="stat-grid">
-              <div class="stat-card">
+              <div class="stat-card accent">
                 <span>Score</span>
                 <strong id="score">0</strong>
               </div>
@@ -64,16 +78,30 @@
               </div>
             </div>
 
-            <div class="next-wrap">
-              <p class="section-label">Next piece</p>
-              <canvas id="next" width="120" height="120" aria-label="Next piece preview"></canvas>
+            <div class="meta-grid">
+              <div class="mini-panel next-wrap">
+                <p class="section-label">Next piece</p>
+                <canvas id="next" width="120" height="120" aria-label="Next piece preview"></canvas>
+              </div>
+              <div class="mini-panel tips-wrap">
+                <p class="section-label">Touch tips</p>
+                <ul class="tips-list">
+                  <li>Tap board to rotate</li>
+                  <li>Swipe sideways to move</li>
+                  <li>Swipe down for soft drop</li>
+                  <li>Fast swipe down for hard drop</li>
+                </ul>
+              </div>
             </div>
 
-            <button id="startButton" class="primary-btn">Start game</button>
+            <div class="action-row">
+              <button id="startButton" class="primary-btn">Start game</button>
+              <button id="pauseButton" class="secondary-btn">Pause</button>
+            </div>
           </section>
 
           <section class="panel info-panel">
-            <p class="section-label">Controls</p>
+            <p class="section-label">Keyboard controls</p>
             <ul>
               <li>← → move</li>
               <li>↑ rotate</li>
@@ -90,7 +118,8 @@
               <button data-action="rotate">⟳</button>
               <button data-action="right">→</button>
               <button data-action="drop">↓</button>
-              <button data-action="hardDrop" class="wide">Drop</button>
+              <button data-action="pause" class="soft">Pause</button>
+              <button data-action="hardDrop" class="wide primary">Hard Drop</button>
             </div>
           </section>
         </aside>
