@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Moore Mozambique Tetris</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="hero-card">
+        <div>
+          <p class="eyebrow">MOORE MOZAMBIQUE</p>
+          <h1>Brand-playful Tetris, built for a clean first deploy.</h1>
+          <p class="subtitle">
+            Modern glassmorphism UI, Moore-inspired blues, responsive layout, keyboard + touch support.
+          </p>
+        </div>
+        <div class="hero-badge">Test App</div>
+      </header>
+
+      <main class="game-layout">
+        <section class="panel game-panel">
+          <div class="canvas-wrap">
+            <canvas id="game" width="300" height="600" aria-label="Tetris board"></canvas>
+            <div id="overlay" class="overlay hidden">
+              <div>
+                <p class="overlay-label">Game Over</p>
+                <h2 id="finalScore">Score: 0</h2>
+                <button id="restartButton" class="primary-btn">Play again</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <aside class="sidebar">
+          <section class="panel stats-panel">
+            <div class="brand-lockup">
+              <div class="brand-mark">M</div>
+              <div>
+                <p class="brand-title">Moore Mozambique</p>
+                <p class="brand-subtitle">Internal demo concept</p>
+              </div>
+            </div>
+
+            <div class="stat-grid">
+              <div class="stat-card">
+                <span>Score</span>
+                <strong id="score">0</strong>
+              </div>
+              <div class="stat-card">
+                <span>Level</span>
+                <strong id="level">1</strong>
+              </div>
+              <div class="stat-card">
+                <span>Lines</span>
+                <strong id="lines">0</strong>
+              </div>
+            </div>
+
+            <div class="next-wrap">
+              <p class="section-label">Next piece</p>
+              <canvas id="next" width="120" height="120" aria-label="Next piece preview"></canvas>
+            </div>
+
+            <button id="startButton" class="primary-btn">Start game</button>
+          </section>
+
+          <section class="panel info-panel">
+            <p class="section-label">Controls</p>
+            <ul>
+              <li>← → move</li>
+              <li>↑ rotate</li>
+              <li>↓ soft drop</li>
+              <li>Space hard drop</li>
+              <li>P pause</li>
+            </ul>
+          </section>
+
+          <section class="panel mobile-controls">
+            <p class="section-label">Touch controls</p>
+            <div class="touch-grid">
+              <button data-action="left">←</button>
+              <button data-action="rotate">⟳</button>
+              <button data-action="right">→</button>
+              <button data-action="drop">↓</button>
+              <button data-action="hardDrop" class="wide">Drop</button>
+            </div>
+          </section>
+        </aside>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
