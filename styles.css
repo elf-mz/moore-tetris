@@ -199,6 +199,10 @@ h1 {
     0 0 0 1px rgba(255, 255, 255, 0.02);
 }
 
+.mobile-hud {
+  display: none;
+}
+
 #game {
   aspect-ratio: 1 / 2;
   touch-action: none;
@@ -403,37 +407,47 @@ h1 {
 }
 
 @media (max-width: 720px) {
+  html,
+  body {
+    height: 100dvh;
+    overflow: hidden;
+  }
+
   body {
     min-height: 100dvh;
   }
 
   .hero-card,
   .info-panel,
-  .tips-wrap {
+  .stats-panel {
     display: none;
   }
 
   .app-shell {
-    padding: 8px 8px 10px;
-    min-height: 100dvh;
+    padding: 6px;
+    height: 100dvh;
   }
 
   .game-layout {
-    height: calc(100dvh - 18px);
+    height: calc(100dvh - 12px);
     grid-template-columns: 1fr;
     grid-template-rows: minmax(0, 1fr) auto;
-    gap: 10px;
+    gap: 8px;
   }
 
   .panel,
-  .board-frame {
-    padding: 10px;
-    border-radius: 18px;
+  .board-frame,
+  .mobile-controls {
+    padding: 8px;
+    border-radius: 16px;
   }
 
   .game-panel {
     min-height: 0;
-    padding: 8px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
   }
 
   .canvas-wrap {
@@ -442,18 +456,42 @@ h1 {
   }
 
   .board-frame {
-    height: min(68dvh, calc(100dvh - 210px));
-    display: flex;
-    flex-direction: column;
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto auto minmax(0, 1fr);
+    gap: 6px;
   }
 
   .board-topbar {
-    margin-bottom: 8px;
+    margin-bottom: 0;
   }
 
   .top-pill {
-    padding: 6px 10px;
-    font-size: 0.72rem;
+    padding: 5px 8px;
+    font-size: 0.67rem;
+  }
+
+  .mobile-hud {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+
+  .hud-pill {
+    padding: 6px 8px;
+    border-radius: 12px;
+    border: 1px solid rgba(166, 212, 255, 0.12);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--muted);
+    font-size: 0.68rem;
+    text-align: center;
+  }
+
+  .hud-pill strong {
+    display: block;
+    margin-top: 2px;
+    color: var(--text);
+    font-size: 0.95rem;
   }
 
   #game {
@@ -461,117 +499,45 @@ h1 {
     max-width: 100%;
     max-height: 100%;
     margin: 0 auto;
-    flex: 1;
+    min-height: 0;
   }
 
   .swipe-hint {
-    width: calc(100% - 20px);
-    bottom: 14px;
+    width: calc(100% - 16px);
+    bottom: 10px;
     text-align: center;
-    font-size: 0.7rem;
-    padding: 6px 8px;
+    font-size: 0.64rem;
+    padding: 5px 8px;
   }
 
   .sidebar {
-    gap: 10px;
-  }
-
-  .stats-panel {
-    padding: 10px;
-  }
-
-  .brand-lockup {
-    margin-bottom: 10px;
-    gap: 10px;
-  }
-
-  .brand-mark {
-    width: 38px;
-    height: 38px;
-    border-radius: 12px;
-    font-size: 1rem;
-  }
-
-  .brand-title {
-    font-size: 0.95rem;
-  }
-
-  .brand-subtitle {
-    display: none;
-  }
-
-  .stat-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-  }
-
-  .stat-card {
-    padding: 10px;
-    border-radius: 14px;
-  }
-
-  .stat-card span {
-    font-size: 0.68rem;
-    margin-bottom: 4px;
-  }
-
-  .stat-card strong {
-    font-size: 1.1rem;
-  }
-
-  .meta-grid {
-    grid-template-columns: 84px 1fr;
-    gap: 8px;
-    margin-top: 10px;
-  }
-
-  .mini-panel {
-    padding: 8px;
-    border-radius: 14px;
-  }
-
-  #next {
-    width: 64px;
-    height: 64px;
-    margin: 0 auto;
-  }
-
-  .action-row {
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-top: 10px;
-  }
-
-  .primary-btn,
-  .secondary-btn {
-    padding: 12px 10px;
-    border-radius: 14px;
-    font-size: 0.9rem;
+    gap: 0;
   }
 
   .mobile-controls {
     display: block;
+    background: rgba(8, 22, 44, 0.88);
   }
 
   .mobile-controls .section-label {
-    margin-bottom: 6px;
+    display: none;
   }
 
   .touch-grid {
     grid-template-columns: repeat(5, 1fr);
-    gap: 8px;
+    gap: 6px;
     margin-top: 0;
   }
 
   .touch-grid button {
-    min-height: 48px;
-    padding: 10px 6px;
-    border-radius: 14px;
-    font-size: 0.9rem;
+    min-height: 44px;
+    padding: 8px 4px;
+    border-radius: 12px;
+    font-size: 0.84rem;
   }
 
   .touch-grid .wide {
     grid-column: span 5;
-    min-height: 46px;
+    min-height: 42px;
   }
 }

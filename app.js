@@ -31,6 +31,9 @@ const nextCtx = nextCanvas.getContext("2d");
 const scoreEl = document.getElementById("score");
 const linesEl = document.getElementById("lines");
 const levelEl = document.getElementById("level");
+const scoreMobileEl = document.getElementById("scoreMobile");
+const linesMobileEl = document.getElementById("linesMobile");
+const levelMobileEl = document.getElementById("levelMobile");
 const overlayEl = document.getElementById("overlay");
 const finalScoreEl = document.getElementById("finalScore");
 const startButton = document.getElementById("startButton");
@@ -109,6 +112,9 @@ function updateStats() {
   scoreEl.textContent = score;
   linesEl.textContent = lines;
   levelEl.textContent = level;
+  scoreMobileEl.textContent = score;
+  linesMobileEl.textContent = lines;
+  levelMobileEl.textContent = level;
 }
 
 function collide(piece, offsetX = 0, offsetY = 0, shape = piece.shape) {
